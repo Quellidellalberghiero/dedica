@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#f1ebdd">
+<meta name="supported-color-schemes" content="light">
+<title>Una dedica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --paper: #f1ebdd;
+    --ink: #2a241c;
+    --ink-soft: #5a4f3f;
+    --accent: #7a3522;
+    --rule: #c9bfa8;
+  }
+
+  /* Forzo i colori anche in dark mode di sistema */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: light;
+      --paper: #f1ebdd;
+      --ink: #2a241c;
+      --ink-soft: #5a4f3f;
+      --accent: #7a3522;
+      --rule: #c9bfa8;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.65;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(ellipse at 20% 30%, rgba(122, 53, 34, 0.04), transparent 60%),
+      radial-gradient(ellipse at 80% 70%, rgba(42, 36, 28, 0.05), transparent 60%);
+    z-index: 0;
+  }
+
+  /* SCHERMATA DI APERTURA */
+  #intro {
+    position: fixed;
+    inset: 0;
+    background: var(--paper);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: pointer;
+    transition: opacity 1.2s ease-out;
+  }
+
+  #intro.fading { opacity: 0; pointer-events: none; }
+
+  .intro-ornament {
+    color: var(--rule);
+    font-size: 0.9rem;
+    letter-spacing: 0.5em;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: introIn 1.5s ease-out 0.3s forwards;
+  }
+
+  .intro-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    text-align: center;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: introIn 1.5s ease-out 0.8s forwards;
+  }
+
+  .intro-sub {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 4rem;
+    opacity: 0;
+    animation: introIn 1.5s ease-out 1.3s forwards;
+  }
+
+  .intro-cta {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--accent);
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    padding: 0.8rem 2rem;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0;
+    animation: introIn 1.5s ease-out 1.8s forwards, pulse 2.5s ease-in-out 3s infinite;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .intro-cta:hover {
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  @keyframes introIn { to { opacity: 1; } }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+
+  /* CONTENUTO PRINCIPALE */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 12vh 8vw 16vh;
+    visibility: hidden;
+  }
+
+  main.started { visibility: visible; }
+
+  .stanza {
+    opacity: 0;
+    transform: translateY(20px);
+    margin-bottom: 14vh;
+  }
+
+  main.started .stanza {
+    animation: emerge 2.2s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+  }
+
+  main.started .stanza:nth-child(1) { animation-delay: 0.4s; }
+  main.started .stanza:nth-child(2) { animation-delay: 3.5s; }
+  main.started .stanza:nth-child(3) { animation-delay: 7.0s; }
+  main.started .stanza:nth-child(4) { animation-delay: 10.5s; }
+  main.started .stanza:nth-child(5) { animation-delay: 14.0s; }
+  main.started .stanza:nth-child(6) { animation-delay: 17.5s; }
+
+  @keyframes emerge {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .ornament {
+    text-align: center;
+    color: var(--rule);
+    font-size: 0.9rem;
+    letter-spacing: 0.5em;
+    margin-bottom: 4vh;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.15;
+    text-align: center;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: var(--ink-soft);
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+  }
+
+  p {
+    margin-bottom: 1.2rem;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .verso {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+    line-height: 1.4;
+    text-align: center;
+    color: var(--accent);
+    margin: 2rem 0 0.5rem;
+    letter-spacing: 0.01em;
+  }
+
+  .verso-attribuzione {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    font-style: italic;
+    letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+  }
+
+  .rule {
+    width: 60px;
+    height: 1px;
+    background: var(--rule);
+    margin: 3rem auto;
+    border: none;
+  }
+
+  .firma {
+    text-align: right;
+    margin-top: 4rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+
+  .firma .nome {
+    display: block;
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin-top: 0.3rem;
+  }
+
+  /* Player nascosto */
+  #player-hidden {
+    position: fixed;
+    bottom: -300px;
+    left: -300px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Controllo audio discreto */
+  .audio-control {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    color: var(--ink-soft);
+    padding: 0.6rem 1rem;
+    border-radius: 30px;
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(42, 36, 28, 0.1);
+    opacity: 0;
+    transition: opacity 0.8s ease-out, background 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .audio-control.visible { opacity: 1; }
+
+  .audio-control:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .audio-control.needs-tap {
+    background: var(--accent);
+    color: var(--paper);
+    border-color: var(--accent);
+    animation: tapPulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes tapPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 4px 20px rgba(122, 53, 34, 0.3); }
+    50% { transform: scale(1.05); box-shadow: 0 6px 30px rgba(122, 53, 34, 0.5); }
+  }
+
+  @media (max-width: 600px) {
+    main { padding: 8vh 6vw 14vh; }
+    .stanza { margin-bottom: 10vh; }
+    .audio-control {
+      bottom: 1rem;
+      right: 1rem;
+      font-size: 0.8rem;
+      padding: 0.5rem 0.9rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- SCHERMATA DI APERTURA -->
+<div id="intro">
+  <div class="intro-ornament">· · ·</div>
+  <div class="intro-title">Una dedica</div>
+  <div class="intro-sub">con musica</div>
+  <button class="intro-cta" id="startBtn">Entra</button>
+</div>
+
+<!-- CONTENUTO -->
+<main id="content">
+
+  <div class="stanza">
+    <div class="ornament">· · ·</div>
+    <h1>A chi mi ha insegnato<br>il sapore delle cose</h1>
+    <p class="subtitle">e a chi ha aspettato che lo imparassi</p>
+  </div>
+
+  <div class="stanza">
+    <p class="verso">«I' l'era avè p' forz»</p>
+    <p class="verso-attribuzione">Geolier, P'Forz</p>
+  </div>
+
+  <div class="stanza">
+    <p>Ci sono percorsi che si compiono per sé, e percorsi che si compiono per qualcun altro. Questo lavoro è del secondo tipo. È nato dal desiderio di capire un'emozione difficile, il disgusto, e di capire come la ristorazione, che frequento dai banchi dell'alberghiero passando per lavorare in alberghi, ristoranti, bar fino a insegnarla ai miei alunni, sia anche un luogo in cui questa emozione viene attraversata, accompagnata, trasformata in piacere consapevole.</p>
+    <p>Sotto questa domanda teorica ne è sempre rimasta un'altra, più antica: una promessa fatta a me stesso.</p>
+  </div>
+
+  <div class="stanza">
+    <p class="verso">«Ce l'era fà p' forz»</p>
+    <p class="verso-attribuzione">Geolier, P'Forz</p>
+  </div>
+
+  <div class="stanza">
+    <p>Studiare da adulti, in parallelo al lavoro, ha un sapore diverso. È fatto di sere stanche, di pagine rilette più volte senza ricordare nulla, di una fatica che nessuno vede e che però tiene insieme tutto. Non c'è eroismo in questo, c'è solo la promessa fatta a se stessi che si continua, anche quando la convenienza direbbe il contrario.</p>
+    <p>Ma è anche, soprattutto, una fatica che non sarebbe stata possibile senza chi mi sta vicino ogni giorno: mia moglie, che in tutti questi mesi ha tenuto in piedi ciò che io avevo lasciato cadere, senza mai chiedermi di smettere, e la mia famiglia, che ha sopportato qualche mia assenza di troppo. Questa tesi è anche loro.</p>
+  </div>
+
+  <div class="stanza">
+    <hr class="rule">
+    <p style="text-align: center; font-style: italic; color: var(--ink-soft);">
+      A chi mi ha aspettato.<br>
+      A chi mi aspetta ogni sera.<br>
+      A chi mi avrebbe aspettato.
+    </p>
+    <div class="firma">
+      <span>Roma, maggio 2026</span>
+      <span class="nome">Francesco Di Prisco</span>
+    </div>
+  </div>
+
+</main>
+
+<!-- Player YouTube nascosto, riproduce solo l'audio -->
+<div id="player-hidden">
+  <div id="player"></div>
+</div>
+
+<!-- Controllo audio -->
+<button class="audio-control" id="audioControl" aria-label="Pausa o riproduci">
+  <span id="audioIcon">⏸</span>
+  <span id="audioLabelText">P'Forz — Geolier</span>
+</button>
+
+<script>
+  // Carica l'API di YouTube
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  var player;
+  var isPlaying = false;
+  var pendingStart = false;
+
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      height: '200',
+      width: '300',
+      videoId: 'Q340LyAXzgQ',
+      playerVars: {
+        'autoplay': 0,
+        'controls': 0,
+        'rel': 0,
+        'modestbranding': 1,
+        'playsinline': 1
+      },
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
+
+  function onPlayerReady(event) {
+    if (pendingStart) {
+      try {
+        player.mute();
+        player.playVideo();
+        setTimeout(function() {
+          try {
+            player.unMute();
+            player.setVolume(80);
+          } catch (e) {}
+        }, 100);
+      } catch (err) { console.log(err); }
+    }
+  }
+
+  function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.PLAYING) {
+      isPlaying = true;
+      document.getElementById('audioIcon').textContent = '⏸';
+      document.getElementById('audioControl').classList.remove('needs-tap');
+    } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+      isPlaying = false;
+      document.getElementById('audioIcon').textContent = '▶';
+    }
+  }
+
+  // Se dopo 3 secondi non sta suonando, evidenzio il bottone come invito
+  function checkAudioStarted() {
+    setTimeout(function() {
+      if (!isPlaying) {
+        var ctrl = document.getElementById('audioControl');
+        ctrl.classList.add('needs-tap');
+        document.getElementById('audioLabelText').textContent = 'Tocca per la musica';
+      }
+    }, 3000);
+  }
+
+  function startExperience() {
+    var intro = document.getElementById('intro');
+    var content = document.getElementById('content');
+    var audioControl = document.getElementById('audioControl');
+
+    intro.classList.add('fading');
+    content.classList.add('started');
+
+    // Sequenza speciale per mobile: parti muto, poi togli muto subito
+    function tryPlay() {
+      if (!player || !player.playVideo) {
+        pendingStart = true;
+        return;
+      }
+      try {
+        // Su iOS/mobile l'audio parte solo se il video parte muto
+        // e l'unMute avviene dentro lo stesso gesto utente
+        player.mute();
+        player.playVideo();
+        // Togli il muto subito dopo, ancora nel contesto del gesto
+        setTimeout(function() {
+          try {
+            player.unMute();
+            player.setVolume(80);
+          } catch (e) { console.log('unmute error', e); }
+        }, 100);
+        // Doppio tentativo dopo un secondo, per sicurezza
+        setTimeout(function() {
+          try {
+            if (player.isMuted && player.isMuted()) {
+              player.unMute();
+              player.setVolume(80);
+            }
+          } catch (e) {}
+        }, 1000);
+      } catch (err) {
+        pendingStart = true;
+      }
+    }
+
+    tryPlay();
+    checkAudioStarted();
+
+    setTimeout(function() {
+      intro.style.display = 'none';
+      audioControl.classList.add('visible');
+    }, 1300);
+  }
+
+  document.getElementById('startBtn').addEventListener('click', function(e) {
+    e.stopPropagation();
+    startExperience();
+  });
+
+  document.getElementById('intro').addEventListener('click', function() {
+    startExperience();
+  });
+
+  document.getElementById('audioControl').addEventListener('click', function() {
+    var ctrl = document.getElementById('audioControl');
+    ctrl.classList.remove('needs-tap');
+    document.getElementById('audioLabelText').textContent = "P'Forz — Geolier";
+    if (!player) return;
+    if (isPlaying) {
+      player.pauseVideo();
+    } else {
+      try {
+        player.unMute();
+        player.setVolume(80);
+        player.playVideo();
+      } catch (e) { console.log(e); }
+    }
+  });
+</script>
+
+</body>
+</html>
